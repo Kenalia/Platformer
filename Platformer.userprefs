@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI\Brain_Player.cs">
+    <Files>
+      <File FileName="Assets\Scripts\AI\Brain.cs" Line="19" Column="24" />
+      <File FileName="Assets\Scripts\AI\Brain_Player.cs" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\AI\MovementController.cs" Line="12" Column="47" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
