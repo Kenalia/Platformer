@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour {
 
+    Brain brain;
+
 	[SerializeField]
 	private float speed = 5;
     [SerializeField]
@@ -16,6 +18,7 @@ public class MovementController : MonoBehaviour {
 
     Transform tr;
     Rigidbody2D rb;
+    BoxCollider2D coll;
 
     [SerializeField]
     bool offGround = false;
@@ -32,20 +35,13 @@ public class MovementController : MonoBehaviour {
     {
 
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(transform.position, -transform.up, requiredDistanceFromGroundToJump, platformLayer);
+        hit = Physics2D.Raycast(tr.position, -tr.up, requiredDistanceFromGroundToJump, platformLayer);
 
         //Hit will detect the trigger colliders of the platforms, so an inner check must be made
         if (hit)
         {
-            Debug.LogFormat("In range of floor: {0}", (transform.position.y - (GetComponent<BoxCollider2D>().size.y)) <= hit.collider.transform.position.y + requiredDistanceFromGroundToJump);
-
-            //Ensure that player is actually on the platform
-            if ((transform.position.y - (GetComponent<BoxCollider2D>().size.y)) <= hit.collider.transform.position.y + requiredDistanceFromGroundToJump)
-            {
-
-                offGround = false;
-                jumped = false;
-            }
+            offGround = false;
+            jumped = false;
         }
         else
         {
@@ -56,6 +52,7 @@ public class MovementController : MonoBehaviour {
         if (isSneaking && offGround)
         {
             rb.gravityScale = 0.0f;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
         else
         {
@@ -63,10 +60,12 @@ public class MovementController : MonoBehaviour {
         }
     }
 
-    public void InitializeMovementController()
+    public void InitializeMovementController(Brain brain)
     {
-        rb = GetComponent<Rigidbody2D>();
-        tr = GetComponent<Transform>();
+        this.brain = brain;
+        rb = brain.AccessRigidbody();
+        tr = brain.AccessTransform();
+        coll = brain.AccessCollider();
     }
 
 	public void TakeMoveInput(Vector2 direction)
@@ -120,6 +119,24 @@ public class MovementController : MonoBehaviour {
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
+    }
+
+    /// <summary>
+    /// Sets the position to the passed Vector2
+    /// </summary>
+    /// <param name="newPosition">New Vector2 location to set</param>
+    public void SetPosition(Vector2 newPosition)
+    {
+        tr.position = newPosition;
+    }
+
+    /// <summary>
+    /// Sets the position of the object to (0,0)
+    /// Base function for the SetPosition overloads
+    /// </summary>
+    public void SetPosition()
+    {
+        tr.position = new Vector2(0, 0);
     }
 
 }

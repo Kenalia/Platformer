@@ -6,7 +6,11 @@ public class Brain_Player : Brain {
 
     private void Start()
     {
-        if(moveControl == null)
+        collider = GetComponentInChildren<BoxCollider2D>();
+        transform = GetComponent<Transform>();
+        rigidbody = GetComponentInChildren<Rigidbody2D>();
+
+        if (moveControl == null)
         {
             moveControl = GetComponent<MovementController>();
         }
@@ -16,7 +20,7 @@ public class Brain_Player : Brain {
             combatControl = GetComponent<CombatController>();
         }
 
-        moveControl.InitializeMovementController();
+        moveControl.InitializeMovementController(this);
     }
 
     private void Update()
@@ -58,6 +62,11 @@ public class Brain_Player : Brain {
         {
             moveControl.Sneak(false);
         }
+    }
+
+    public BoxCollider2D AccessCollider()
+    {
+        return collider;
     }
 
 }

@@ -56,6 +56,9 @@
      <Compile Include="Assets\Scripts\AI\CombatController.cs" />
      <Compile Include="Assets\Scripts\AI\MovementController.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Map_Creator\TextMapParser.cs" />
+     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
+     <Compile Include="Assets\Scripts\Platform\PlatformBlock.cs" />
      <Compile Include="Assets\Scripts\PlayerPrefsManager.cs" />
      <Compile Include="Assets\Scripts\Settings_Controller.cs" />
  <Reference Include="UnityEngine.UI">

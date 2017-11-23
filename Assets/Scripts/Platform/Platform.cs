@@ -7,7 +7,12 @@ public class Platform : MonoBehaviour {
     [SerializeField]
     BoxCollider2D entityDetectionTrigger;
 
+    LinkedList<PlatformBlock> blocks;
+    LinkedListNode<PlatformBlock> leftBoundary;
+    LinkedListNode<PlatformBlock> rightBoundary;
+
 	void Start () {
+        //blocks.AddFirst(leftBoundary);
     }
 	
 	void Update () {
