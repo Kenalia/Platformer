@@ -35,28 +35,31 @@ public class MovementController : MonoBehaviour {
     {
 
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(tr.position, -tr.up, requiredDistanceFromGroundToJump, platformLayer);
+        if (tr != null)
+        {
+            hit = Physics2D.Raycast(tr.position, -tr.up, requiredDistanceFromGroundToJump, platformLayer);
 
-        //Hit will detect the trigger colliders of the platforms, so an inner check must be made
-        if (hit)
-        {
-            offGround = false;
-            jumped = false;
-        }
-        else
-        {
-            offGround = true;
-        }
+            //Hit will detect the trigger colliders of the platforms, so an inner check must be made
+            if (hit)
+            {
+                offGround = false;
+                jumped = false;
+            }
+            else
+            {
+                offGround = true;
+            }
 
-        //Disable gravity when gliding
-        if (isSneaking && offGround)
-        {
-            rb.gravityScale = 0.0f;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-        }
-        else
-        {
-            rb.gravityScale = 1.0f;
+            //Disable gravity when gliding
+            if (isSneaking && offGround)
+            {
+                rb.gravityScale = 0.0f;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+            else
+            {
+                rb.gravityScale = 1.0f;
+            }
         }
     }
 
