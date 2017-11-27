@@ -279,11 +279,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab_playerStartPosition: {fileID: 1328967107536936, guid: a4fe653a3e853ae458535afc6dcbc208,
     type: 2}
-  prefab_platformLeftBoundary: {fileID: 1994393984577788, guid: 4323bd5b93f5cb14299e0f2e06441f76,
+  prefab_platformLeftBoundary: {fileID: 1043295817276758, guid: 5220f14780fbab94bbc74375b140f6aa,
     type: 2}
   prefab_platformType_Base: {fileID: 1994393984577788, guid: 4323bd5b93f5cb14299e0f2e06441f76,
     type: 2}
-  prefab_platformRightBoundary: {fileID: 1994393984577788, guid: 4323bd5b93f5cb14299e0f2e06441f76,
+  prefab_platformRightBoundary: {fileID: 1638290935515028, guid: 1f3a7a9796ce3a149880ea0e015db1e7,
     type: 2}
   prefab_coin: {fileID: 0}
   parent: {fileID: 0}

@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252450d804a55a7419f1a9caa24834df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  jumpForce: 4
+  speed: 6
+  jumpForce: 5
   requiredDistanceFromGroundToJump: 0.1
   platformLayer:
     serializedVersion: 2
