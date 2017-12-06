@@ -27,16 +27,18 @@ public class Platform : MonoBehaviour {
 
     public void PlatformFinished()
     {
+
         leftBoundary = blocks.First;
         rightBoundary = blocks.Last;
 
+
         entityDetectionTrigger = new BoxCollider2D();
 
-        float triggerOffset = (rightBoundary.Value.gameObject.transform.position.x + 1) - (leftBoundary.Value.gameObject.transform.position.x);
+        //float triggerOffset = (rightBoundary.Value.gameObject.transform.position.x + 1) - (leftBoundary.Value.gameObject.transform.position.x);
 
         //Y value of 0.5 because the collider needs to be in the middle, and the blocks are 1 unit tall, y is at bottom of unit
-        entityDetectionTrigger.offset = new Vector2(triggerOffset, 0.5f);
-        entityDetectionTrigger.size = new Vector2(blocks.Count, triggerHeight);
+        //entityDetectionTrigger.offset = new Vector2(triggerOffset, 0.5f);
+        //entityDetectionTrigger.size = new Vector2(blocks.Count, triggerHeight);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -23,9 +23,11 @@ public class MovementController : MonoBehaviour {
     [SerializeField]
     bool offGround = false;
     [SerializeField]
-    bool jumped = false;
+    bool canJump = true;
     [SerializeField]
     bool isSneaking = false;
+
+    float jumpTimer = 0.0f;
 
     private Vector2 lastMoveVector;
     private Vector2 glidingVector = new Vector2(2.1933f, 1.0967f); //A scale of 1/9th 2:1 gravity
@@ -43,7 +45,6 @@ public class MovementController : MonoBehaviour {
             if (hit)
             {
                 offGround = false;
-                jumped = false;
             }
             else
             {
@@ -59,6 +60,16 @@ public class MovementController : MonoBehaviour {
             else
             {
                 rb.gravityScale = 1.0f;
+            }
+
+            if(jumpTimer > 0)
+            {
+                jumpTimer -= 0.1f;
+            }
+            else
+            {
+                jumpTimer = 0;
+                canJump = true;
             }
         }
     }
@@ -106,11 +117,13 @@ public class MovementController : MonoBehaviour {
 
     public void Jump()
     {
-        if(jumped == false)
+        if(canJump == true && offGround == false)
         {
+            jumpTimer = 5.0f;
+
             rb.velocity = new Vector3(0, jumpForce, 0);
 
-            jumped = true;
+            canJump = false;
             offGround = true; //Keep the player from double jumping while the engine checks
         }
     }

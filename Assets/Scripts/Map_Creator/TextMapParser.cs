@@ -10,6 +10,7 @@ public class TextMapParser : MonoBehaviour {
     char char_platformType_Base = '-';
     char char_platformRightBoundary = '>';
     char char_coin = 'C';
+    char char_turret_enemy = 'T';
 
     [SerializeField]
     GameObject prefab_playerStartPosition;
@@ -21,6 +22,8 @@ public class TextMapParser : MonoBehaviour {
     GameObject prefab_platformRightBoundary;
     [SerializeField]
     GameObject prefab_coin;
+    [SerializeField]
+    GameObject prefab_turret_enemy;
 
     int playerStartCounts = 0;
     Vector2 playerStartPosition;
@@ -43,7 +46,8 @@ public class TextMapParser : MonoBehaviour {
             { char_playerStartPosition, prefab_playerStartPosition },
             { char_platformLeftBoundary, prefab_platformLeftBoundary },
             { char_platformType_Base, prefab_platformType_Base },
-            { char_platformRightBoundary, prefab_platformRightBoundary }
+            { char_platformRightBoundary, prefab_platformRightBoundary },
+            { char_turret_enemy, prefab_turret_enemy }
         };
 
         //Open the file
@@ -72,7 +76,7 @@ public class TextMapParser : MonoBehaviour {
                 else if(line[i].Equals(char_platformLeftBoundary))
                 {
                     //Create the platform list
-                    parent = Instantiate(new GameObject("Platform " + place.ToString()), new Vector3(0,0,0), new Quaternion(0f,0f,0f,0f)) as GameObject;
+                    parent = new GameObject("Platform " + place.ToString());
                     platformParent = parent.transform;
 
                     //Create the first block
@@ -83,16 +87,6 @@ public class TextMapParser : MonoBehaviour {
 					parent.AddComponent<Platform> ();
                     parent.GetComponent<Platform>().StartPlatform();
 					parent.GetComponent<Platform>().blocks.AddFirst(block.GetComponent<PlatformBoundary>());
-                }
-                else if(units.ContainsKey(line[i]))
-                {
-                    if(platformParent != null)
-                    {
-                        //Add the block
-                        GameObject block = Instantiate(units[line[i]], place, new Quaternion(0f, 0f, 0f, 0f), platformParent) as GameObject;
-                        block.name = platformParent.name + " block #" + (place.x - platformParent.position.x);
-                        platformParent.gameObject.GetComponent<Platform>().blocks.AddLast(block.GetComponent<PlatformBoundary>());
-                    }
                 }
                 else if(line[i].Equals(char_platformRightBoundary))
                 {
@@ -109,9 +103,23 @@ public class TextMapParser : MonoBehaviour {
                         parent = null;
                     }
                 }
+                else if (units.ContainsKey(line[i]))
+                {
+                    GameObject unit = units[line[i]];
 
-                Debug.Log(parent);
-
+                    if (platformParent != null)
+                    {
+                        //Add the block
+                        GameObject block = Instantiate(units[line[i]], place, new Quaternion(0f, 0f, 0f, 0f), platformParent) as GameObject;
+                        block.name = platformParent.name + " block #" + (place.x - platformParent.position.x);
+                        platformParent.gameObject.GetComponent<Platform>().blocks.AddLast(block.GetComponent<PlatformBoundary>());
+                    }
+                    else if(platformParent == null)
+                    {
+                        GameObject madeObj = Instantiate(unit, place, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+                        madeObj.name = unit.name + " Start: " + place.ToString();
+                    }
+                }
             }
 
             place.y--;
